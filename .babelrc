@@ -1,3 +1,5 @@
+//TODO - setup latest babel config
+
 {
   "presets": [
     "latest"
