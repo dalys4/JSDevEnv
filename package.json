@@ -2,10 +2,12 @@
   "name": "javascript-development-environment",
   "version": "1.0.0",
   "description": "JavaScript development environment Pluralsight course by Cory House",
+  "private": true,
+  "main": "index.js",
   "scripts": {
-    "prestart": "node buildScripts/startMessage.js",
+    "prestart": "babel-node buildScripts/startMessage.js",
     "start": "npm-run-all --parallel openSource",
-    "openSource": "node buildScripts/srcServer.js",
+    "openSource": "babel-node buildScripts/srcServer.js",
     "share": "lt --port 3000"
   },
   "author": "Cory House",
@@ -14,11 +16,10 @@
     "whatwg-fetch": "^3.0.0"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-core": "^6.26.3",
-    "babel-loader": "^8.0.6",
-    "babel-preset-env": "^1.7.0",
-    "babel-register": "^6.26.0",
+    "@babel/cli": "^7.7.0",
+    "@babel/core": "^7.7.2",
+    "@babel/node": "^7.7.0",
+    "@babel/preset-env": "^7.7.1",
     "chai": "^4.2.0",
     "chalk": "^3.0.0",
     "cheerio": "^1.0.0-rc.3",
