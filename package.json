@@ -7,9 +7,13 @@
   "scripts": {
     "build": "webpack",
     "prestart": "babel-node buildScripts/startMessage.js",
-    "start": "npm-run-all --parallel openSource",
+    "start": "npm-run-all --parallel openSource lint:watch test:watch",
     "openSource": "babel-node buildScripts/srcServer.js",
-    "share": "lt --port 3000"
+    "share": "lt --port 3000",
+    "lint": "esw webpack.config.* src buildScripts --color",
+    "lint:watch": "npm run lint -- --watch",
+    "test": "mocha --reporter progress buildScripts/testSetup.js \"src/**/*.test.js\"",
+    "test:watch": "npm run test -- --watch"
   },
   "author": "Cory House",
   "license": "MIT",
@@ -18,6 +22,7 @@
     "@babel/core": "^7.7.2",
     "@babel/node": "^7.7.0",
     "@babel/preset-env": "^7.7.1",
+    "@babel/register": "^7.7.4",
     "babel-loader": "^8.0.6",
     "chai": "^4.2.0",
     "chalk": "^3.0.0",
@@ -49,6 +54,7 @@
     "style-loader": "^1.0.0",
     "webpack": "^4.41.2",
     "webpack-cli": "^3.3.10",
+    "webpack-dev-middleware": "^3.7.2",
     "webpack-dev-server": "^3.9.0"
   },
   "dependencies": {

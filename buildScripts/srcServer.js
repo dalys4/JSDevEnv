@@ -3,8 +3,10 @@ import path from 'path';
 import open from 'open';
 import chalk from 'chalk';
 import webpack from 'webpack';
-import config from '../webpack.config.dev'
+import config from '../webpack.config.dev';
 import middleware from 'webpack-dev-middleware';
+
+/* eslint-disable no-console */
 
 const port = 3000;
 const app = express();
@@ -16,7 +18,8 @@ app.use(middleware(compiler, {
 }));
 
 app.get('/', function(req, res){
-  res.sendFile(path.join(__dirname, '../src/index.html'));
+  console.log(path.join(__dirname, '../dist/index.html'));
+  res.sendFile(path.join(__dirname, '../dist/index.html'));
 });
 
 app.listen(port, function(err){
