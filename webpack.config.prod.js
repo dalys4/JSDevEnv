@@ -30,20 +30,34 @@ const path = require("path");
 
 module.exports = {
   mode: 'development',
-  devtool: 'inline-source-map',
+  devtool: 'source-map',
   target: 'web',
-  entry: [
-     path.resolve(__dirname, 'src/index')
-  ],
+  entry: {
+    //path.resolve(__dirname, 'src/index')
+    vendor: path.resolve(__dirname, 'src/vendor'),
+    main: path.resolve(__dirname, 'src/index')
+  },
+  optimization: {
+    minimize: true,
+    splitChunks: {
+      cacheGroups: {
+        vendor: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendors',
+          chunks: "all"
+        },
+      },
+    },
+  },
   //devServer: {
   //  //contentBase: path.resolve(__dirname, 'src')
   //  noInfo: true
   //},
   stats: "errors-only",
   output: {
-    path: path.resolve(__dirname, 'src'),
+    path: path.resolve(__dirname, 'dist'),
     publicPath: '/',
-    filename: 'bundle.js'
+    filename: '[name].[contenthash].js'
   },
 
   module:{
@@ -54,12 +68,12 @@ module.exports = {
               loader: "babel-loader"
           }]
       },{
-          test: /\.html$/,
-          use: [{
-              loader: "html-loader",
-              options: {minimize: true}
+        test: /\.html$/,
+        use: [{
+            loader: "html-loader",
+            options: {minimize: true}
 
-          }]
+        }]
       },{
           test: /\.(png|svg|jpg|gif)$/,
           use: [
@@ -75,10 +89,21 @@ module.exports = {
       }]
   },
   plugins: [
+
       new HtmlWebPackPlugin({
-         template: "./src/index.html",
-         filename: "./index.html"
-      }),
+        template: "./src/index.html",
+        filename: "./index.html",
+        minify: {
+          removeComments: true,
+          collapseWhitespace: true,
+          useShortDoctype: true,
+          removeRedundantAttributes: true,
+          removeEmptyAttributes: true,
+          removeStyleLinkTypeAttributes: true,
+          keepClosingSlash: true,
+          minifyJS: true,
+        }
+     }),
 
       new MiniSccExtractPlugin({
           filename: "[name].css",

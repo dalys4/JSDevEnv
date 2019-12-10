@@ -11,10 +11,10 @@ describe('Our first test', () => {
 })
 
 describe('index.html', () => {
-  it('should say hello', (done) => {
+  it('should have an h1 that says users', (done) => {
     JSDOM.fromFile('./src/index.html', {}).then(dom => {
       const h1 = dom.window.document.getElementsByTagName('h1')[0];
-      expect(h1.innerHTML).to.equal("Hello World!");
+      expect(h1.innerHTML).to.equal("Users");
       done();
       dom.close;
     })
